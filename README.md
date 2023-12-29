@@ -25,7 +25,6 @@ AgraMu focuses on collecting sensor data from the agricultural environment and p
 
 - Flask
 - requests
-- (Add other dependencies as needed)
 
 ### Usage 👩‍🌾
 
