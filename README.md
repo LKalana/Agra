@@ -30,7 +30,6 @@ AgraMu focuses on collecting sensor data from the agricultural environment and p
 
 1. Access the Flask app in your browser.
 2. The page will automatically refresh, displaying real-time sensor data.
-3. (Add additional instructions as needed)
 
 ### Contributing 🤝
 
