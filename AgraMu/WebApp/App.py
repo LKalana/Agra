@@ -1,11 +1,11 @@
 from flask import Flask, render_template
+import requests
+from datetime import datetime  # Import the datetime module
 
 app = Flask(__name__)
 
 @app.route('/')
 def send_request():
-    import requests
-
     # Replace with the actual IP address and port of your ESP8266 server
     server_ip = "192.168.1.156"
     server_port = 80
@@ -25,8 +25,12 @@ def send_request():
         # If there's an error connecting to the server, display the connection error
         server_response = f"Error connecting to the server: {e}"
 
+    # Add a timestamp to the server response
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    server_response_with_timestamp = f"{timestamp} - {server_response}"
+
     # Render the HTML template with the server response
-    return render_template('index.html', server_response=server_response)
+    return render_template('index.html', server_response=server_response_with_timestamp)
 
 if __name__ == "__main__":
     # Run the Flask app on port 5000 with debug mode enabled
