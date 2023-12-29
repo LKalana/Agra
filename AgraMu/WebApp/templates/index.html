@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgraMu - Flask Client</title>
+    <!-- JavaScript for auto-refreshing the page every 5 seconds -->
+    <script>
+        // Set up an interval to reload the page every 5 seconds
+        setInterval(function() {
+            location.reload();
+        }, 5000);
+    </script>
+</head>
+<body>
+    <h1>AgraMu - Flask Client</h1>
+    <!-- Display the server response received from Flask app -->
+    <p>ESP8266 Server Response: {{ server_response }}</p>
+</body>
+</html>
