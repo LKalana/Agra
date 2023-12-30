@@ -15,6 +15,17 @@
 <body>
     <h1>AgraMu - Flask Client</h1>
     <!-- Display the server response received from Flask app -->
-    <p>ESP8266 Server Response: {{ server_response }}</p>
+    <h2>ESP8266 Server</h2>
+    <p>Response: {{ server_response }}</p>
+    <!-- Display real-time weather information -->
+    {% if city_info %}
+    <h2>Weather Information</h2>
+    <h2>Location : {{ city_info }}</h2>
+    {% endif %}
+    {% if weather_info %}
+        <p>Weather Information: {{ weather_info }}</p>
+    {% else %}
+        <p>Weather Information: Unable to fetch data</p>
+    {% endif %}
 </body>
 </html>
