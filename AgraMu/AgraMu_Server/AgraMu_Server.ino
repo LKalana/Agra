@@ -82,4 +82,5 @@ void loop()
     delay(100);
     CNT ++;
   }
+  CNT = 0;// RESET THE COUNT.
 }
