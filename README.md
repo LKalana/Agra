@@ -11,7 +11,7 @@ AgraMu focuses on collecting sensor data from the agricultural environment and p
 - `AgraMu/`: Directory for AgraMu components.
   - `app.py`: Flask application for AgraMu.
   - `templates/`: Folder containing HTML templates.
-    - `index.html`: HTML template for displaying sensor data.
+    - `index.html`: HTML template for displaying sensor data and real-time weather information.
 
 ### Getting Started 🚀
 
@@ -21,6 +21,10 @@ AgraMu focuses on collecting sensor data from the agricultural environment and p
 4. Run the Flask app: `python app.py`
 5. Access the app in your browser: `http://localhost:5000/`
 
+### Real-Time Weather Data 🌦️
+
+AgraMu integrates real-time weather data using the OpenWeatherMap API. Ensure you have an API key and update the `OPENWEATHERMAP_API_KEY` in `app.py` with your key.
+
 ### Dependencies 🛠️
 
 - Flask
@@ -29,7 +33,7 @@ AgraMu focuses on collecting sensor data from the agricultural environment and p
 ### Usage 👩‍🌾
 
 1. Access the Flask app in your browser.
-2. The page will automatically refresh, displaying real-time sensor data.
+2. The page will automatically refresh, displaying real-time sensor data and weather information.
 
 ### Contributing 🤝
 
