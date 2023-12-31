@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgraMu - Flask Client</title>
+    <title>AgraMu - Dashboard</title>
+
+    <!-- Bootstrap CSS link (you can choose the version you prefer) -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+
     <!-- JavaScript for auto-refreshing the page every 5 seconds -->
     <script>
         // Set up an interval to reload the page every 5 seconds
@@ -11,21 +15,56 @@
             location.reload();
         }, 5000);
     </script>
+
+    <!-- Basic CSS styling (you can customize this further) -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: lightgray;
+        }
+        h1, h2, h3 {
+            color: #007BFF;
+        }
+        p {
+            color: #070505;
+        }
+    </style>
 </head>
 <body>
-    <h1>AgraMu - Flask Client</h1>
-    <!-- Display the server response received from Flask app -->
-    <h2>ESP8266 Server</h2>
-    <p>Response: {{ server_response }}</p>
-    <!-- Display real-time weather information -->
-    {% if city_info %}
-    <h2>Weather Information</h2>
-    <h2>Location : {{ city_info }}</h2>
-    {% endif %}
-    {% if weather_info %}
-        <p>Weather Information: {{ weather_info }}</p>
-    {% else %}
-        <p>Weather Information: Unable to fetch data</p>
-    {% endif %}
+    <div class="container">
+        <center><h1>AgraMu - Dashboard</h1></center>
+        <!-- Display the server response (data from field) -->
+        <h2>Server Response</h2>
+        <p>Response: {{ server_response }}</p>
+        <!-- Display field data -->
+        <h2>Field Data</h2>
+        <p>Local Date & Time: {{ time_info }}</p>
+        <p>Soil Moisture: --- </p>
+        <p>Soil pH value: --- </p>
+        <p>Number of plants: --- </p>
+        <p>Days of plants: --- </p>
+        <!-- Display real-time weather information -->
+        {% if city_info %}
+        <h2>Weather Information</h2>
+        <h3>Location: {{ city_info }}</h3>
+        {% endif %}
+        {% if weather_info %}
+            <p>Weather Information: {{ weather_info }}</p>
+        {% else %}
+            <p>Weather Information: Unable to fetch data</p>
+        {% endif %}
+        <!-- Display plantation data (number of crops, types of crops, etc.) -->
+        <h2>Plantation Data</h2>
+        <p>Number of Plants: --- </p>
+        <p>Types of Plants: --- </p>
+        <p>Required amount of Water: --- </p>
+        <p>Required amount of Fertilizer: --- </p>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js scripts (required for Bootstrap components) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

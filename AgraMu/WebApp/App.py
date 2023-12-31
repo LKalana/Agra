@@ -25,8 +25,8 @@ class ServerResponse(db.Model):
 with app.app_context():
     db.create_all()
 
+global city  
 city = 'Colombo' # Desired city of location.
-
 # Replace 'YOUR_API_KEY' with your OpenWeatherMap API key
 OPENWEATHERMAP_API_KEY = '6d589d7482d994ee8dfcca1280624de7'
 CITY_NAME = city  # Replace with the name of the city you want weather data for
@@ -41,6 +41,8 @@ def send_request():
     # https://openweathermap.org/current
     try:
         weather_data = weather_response.json()
+        # There is an issue with adding Rain guage data.
+        #rain = weather_data['rain']['1h']
         temperature = weather_data['main']['temp']
         humidity = weather_data['main']['humidity']
         city_ = weather_data['name']
@@ -72,10 +74,9 @@ def send_request():
 
     # Add a timestamp to the server response
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    server_response_with_timestamp = f"{timestamp} - {server_response}"
-
+    #server_response_with_timestamp = f"{timestamp} - {server_response}"
     # Render the HTML template with the server response and weather information
-    return render_template('index.html', server_response=server_response_with_timestamp, weather_info=weather_info,city_info=city_info)
+    return render_template('index.html', server_response=server_response, time_info = timestamp, weather_info = weather_info, city_info = city_info)
 
 if __name__ == "__main__":
     # Run the Flask app on port 5000 with debug mode enabled
