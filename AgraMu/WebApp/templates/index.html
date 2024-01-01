@@ -48,6 +48,8 @@
         {% if city_info %}
         <h2>Weather Information</h2>
         <h3>Location: {{ city_info }}</h3>
+        <p>Weather Description : {{ rain_info_main }} , {{ rain_info_description }}</p>
+        <p>Rain forecast : {{ rain_info_1h }}</p>
         {% endif %}
         {% if weather_info %}
             <p>Weather Information: {{ weather_info }}</p>
