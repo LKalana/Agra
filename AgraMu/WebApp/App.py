@@ -48,7 +48,11 @@ def send_request():
         city_ = weather_data['name']
         city_info = f'{city_}' # If you want to show this, Add it to return html_render.
         weather_description = weather_data['weather'][0]['description']
-        weather_info = f'Temperature: {temperature}°C, Humidity: {humidity} g.m-3'
+        weather_info = {
+            'temperature': temperature,
+            'humidity': humidity,
+            'description': weather_description
+        }
     except Exception as e:
         weather_info = f'Error fetching weather data: {e}'
 
@@ -70,17 +74,26 @@ def send_request():
             server_response = f"Error: {response.status_code} - {response.text}"
     except requests.ConnectionError as e:
         # If there's an error connecting to the server, display the connection error
-        server_response = f"Error connecting to the server: {e}"
+        server_response = f"Field Server Fail: {e}"
 
     # Add a timestamp to the server response
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    # Extract rain information
-    rain_info_1h = weather_data.get("rain", {}).get("1h", "No rain gauge data")
-    rain_info_main = weather_data['weather'][0]['main']
-    rain_info_description = weather_data['weather'][0]['description']
-    #server_response_with_timestamp = f"{timestamp} - {server_response}"
-    # Render the HTML template with the server response and weather information
-    return render_template('index.html', server_response=server_response, time_info = timestamp, weather_info = weather_info, city_info = city_info, rain_info_1h = rain_info_1h, rain_info_main=rain_info_main, rain_info_description = rain_info_description)
+
+    # Calculate fluctuations (assuming you have historical data to compare)
+    # You can replace these with actual values based on your system
+    soil_moisture_fluctuation = 0
+    soil_pH_fluctuation = 0
+    num_plants_fluctuation = 0
+    days_of_plants_fluctuation = 0
+    temperature_fluctuation = 0
+    humidity_fluctuation = 0
+    rain_info_1h_fluctuation = 0
+
+    return render_template('index.html', server_response=server_response, time_info=timestamp, weather_info=weather_info,
+                           city_info=city_info, soil_moisture_fluctuation=soil_moisture_fluctuation,
+                           soil_pH_fluctuation=soil_pH_fluctuation, num_plants_fluctuation=num_plants_fluctuation,
+                           days_of_plants_fluctuation=days_of_plants_fluctuation, temperature_fluctuation=temperature_fluctuation,
+                           humidity_fluctuation=humidity_fluctuation, rain_info_1h_fluctuation=rain_info_1h_fluctuation)
 
 if __name__ == "__main__":
     # Run the Flask app on port 5000 with debug mode enabled
