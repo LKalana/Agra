@@ -24,7 +24,7 @@
             background-color: lightgray;
         }
         h1, h2, h3 {
-            color: #007BFF;
+	color: #006600;
         }
         p {
             color: #070505;
@@ -33,12 +33,14 @@
 </head>
 <body>
     <div class="container">
-        <center><h1>AgraMu - Dashboard</h1></center>
+        <center><h1>AgraMu - Dashboard</h1>
+  </center>
         <!-- Display the server response (data from field) -->
         <h2>Server Response</h2>
-        <p>Response: {{ server_response }}</p>
+  <p>Response: {{ server_response }}</p>
         <!-- Display field data -->
         <h2>Field Data</h2>
+        <h3>Location: {{ city_info }}</h3>
         <p>Local Date & Time: {{ time_info }}</p>
         <p>Soil Moisture: --- </p>
         <p>Soil pH value: --- </p>
@@ -47,9 +49,8 @@
         <!-- Display real-time weather information -->
         {% if city_info %}
         <h2>Weather Information</h2>
-        <h3>Location: {{ city_info }}</h3>
-        <p>Weather Description : {{ rain_info_main }} , {{ rain_info_description }}</p>
-        <p>Rain forecast : {{ rain_info_1h }}</p>
+        <p>Rain guage: {{ rain_info_1h }}</p>
+        <p>Climate: {{ rain_info_main }}, {{rain_info_description}}</p>
         {% endif %}
         {% if weather_info %}
             <p>Weather Information: {{ weather_info }}</p>
@@ -62,7 +63,7 @@
         <p>Types of Plants: --- </p>
         <p>Required amount of Water: --- </p>
         <p>Required amount of Fertilizer: --- </p>
-    </div>
+</div>
 
     <!-- Bootstrap JS and Popper.js scripts (required for Bootstrap components) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

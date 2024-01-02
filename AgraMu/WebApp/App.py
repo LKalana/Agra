@@ -36,33 +36,51 @@ def send_request():
     # Get weather data from OpenWeatherMap API
     weather_url = f'http://api.openweathermap.org/data/2.5/weather?q={CITY_NAME}&appid={OPENWEATHERMAP_API_KEY}&units=metric'
     weather_response = requests.get(weather_url)
+    
     # To read the JSON of Openwethermap, use below link.
     # https://openweathermap.org/current
     try:
         weather_data = weather_response.json()
+        # There is an issue with adding Rain guage data.
+        #rain = weather_data['rain']['1h']
         temperature = weather_data['main']['temp']
         humidity = weather_data['main']['humidity']
         city_ = weather_data['name']
-        weather_main = weather_data['weather'][0]['main']
-        weather_description = weather_data['weather'][0]['description']
         city_info = f'{city_}' # If you want to show this, Add it to return html_render.
-        weather_info = f'Temperature: {temperature}°C, Humidity: {humidity} g.m-3, Main Weather: {weather_main}, Description: {weather_description}'
+        weather_description = weather_data['weather'][0]['description']
+        weather_info = f'Temperature: {temperature}°C, Humidity: {humidity} g.m-3'
     except Exception as e:
         weather_info = f'Error fetching weather data: {e}'
-    
+
+    try:
+        # Send a request to the ESP8266 server
+        server_ip = "192.168.1.156"
+        server_port = 80
+        url = f"http://{server_ip}:{server_port}/"
+        response = requests.get(url)
+        if response.status_code == 200:
+            # If the response is successful, extract the server response
+            server_response = response.text
+            # Create a new ServerResponse object and add it to the database
+            new_response = ServerResponse(response_text=server_response)
+            db.session.add(new_response)
+            db.session.commit()
+        else:
+            # If there's an error in the response, display an error message
+            server_response = f"Error: {response.status_code} - {response.text}"
+    except requests.ConnectionError as e:
+        # If there's an error connecting to the server, display the connection error
+        server_response = f"Error connecting to the server: {e}"
+
+    # Add a timestamp to the server response
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     # Extract rain information
     rain_info_1h = weather_data.get("rain", {}).get("1h", "No rain gauge data")
     rain_info_main = weather_data['weather'][0]['main']
     rain_info_description = weather_data['weather'][0]['description']
-    
-    # Add a timestamp to the server response
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    
-    # Create a placeholder server response
-    server_response = "Field Network Fail"  # You can customize this message
-    
+    #server_response_with_timestamp = f"{timestamp} - {server_response}"
     # Render the HTML template with the server response and weather information
-    return render_template('index.html', server_response=server_response, time_info=timestamp, weather_info=weather_info, city_info=city_info, rain_info_1h=rain_info_1h, rain_info_main=rain_info_main, rain_info_description=rain_info_description)
+    return render_template('index.html', server_response=server_response, time_info = timestamp, weather_info = weather_info, city_info = city_info, rain_info_1h = rain_info_1h, rain_info_main=rain_info_main, rain_info_description = rain_info_description)
 
 if __name__ == "__main__":
     # Run the Flask app on port 5000 with debug mode enabled
